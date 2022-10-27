@@ -1,0 +1,15 @@
+
+
+.hide{
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+#board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
