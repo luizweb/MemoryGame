@@ -47,6 +47,9 @@ function settingUpGame() {
         cardBack.className = "hide cardBack";
 
         game.flipCard(cardFront);
+
+        points.innerText = game.points;
+
         })
     })
 

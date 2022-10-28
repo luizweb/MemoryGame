@@ -27,7 +27,7 @@ class MemoryGame {
             return Math.random() - 0.5;
         });
 
-        //console.log(this.deck);
+        console.log(this.deck);
 
         // capturar o board
         const board = document.getElementById("board");
@@ -55,7 +55,7 @@ class MemoryGame {
 
         // se duas cartas firam viradas
         if (this.selectedCards.length === 2) { 
-            console.log("duas cartas viradas!");
+            //console.log("duas cartas viradas!");
             this.checkPair();
         } 
     }
@@ -66,15 +66,38 @@ class MemoryGame {
         if (this.selectedCards[0].src === this.selectedCards[1].src){
             // cartas iguais
             // criar um indicador de que as cartas já foram viradas
+            this.selectedCards[0].classList.add("turn");
+            this.selectedCards[1].classList.add("turn");
+
             // limpar a array de cartas selecionadas
+            this.selectedCards = [];
             // checar o status do jogo (verificar se o jogo acabou, se todas as cartas foram viradas, checar se as tentativas acabaram)
+            this.checkStatus();
         }
         else {
             // cartas diferentes
             // remover ponto do jogador
+            this.points--
+            
+
             // desvirar as duas cartas
-            // limpar array de cartas selecionadas
+            setTimeout(()=>{
+                // esconder as cartas que estão abertas
+                this.selectedCards[0].className = "hide cardFront";
+                this.selectedCards[1].className = "hide cardFront";
+
+                //mostrando a parte de trás da carta de novo
+                this.selectedCards[0].nextElementSibling.classList = "show cardBack";
+                this.selectedCards[1].nextElementSibling.classList = "show cardBack";
+
+                // limpar a array de cartas selecionadas
+                this.selectedCards = [];
+
+            }, 1500);
+
+ 
             // checar o status do jogo ((verificar se o jogo acabou, se todas as cartas foram viradas, checar se as tentativas acabaram)
+            this.checkStatus();
         }
 
     }
@@ -82,7 +105,14 @@ class MemoryGame {
     checkStatus(){
         // checar o status do jogo
         // verificar se o jogo acabou, se todas as cartas foram viradas, checar se as tentativas acabaram
-
-        
+        console.log("checando se o jogador ainda tem potos ou se venceu o jogo")
+        if (this.points === 0){
+            alert(`${this.player}, suas tentativas acabaram! Game over!`);
+        }
+        // se todas as cartas foram viradas, o jogodor ganhou, o jogo acabou
+        const cardsTurn = document.querySelectorAll(".turn")
+        if (cardsTurn.length === this.deck.length){
+            alert(`${this.player}, você venceu!!!`);
+        }
     }
 }
